@@ -7,6 +7,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 public class JeuMain extends Application {
 
     private Scene scene;
@@ -20,6 +22,9 @@ public class JeuMain extends Application {
         //Acteurs du jeu
         Personnage pacman = new Pacman();
         Personnage fantome = new Fantome();
+
+        // Création des obstacles
+
         // on positionne le fantôme 20 positions vers la droite
         fantome.setLayoutX(20 * 10);
         //panneau du jeu
