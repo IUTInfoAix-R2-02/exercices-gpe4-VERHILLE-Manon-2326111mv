@@ -17,18 +17,22 @@ public class CounterController implements Initializable {
     @FXML
     private Button incrementButton;
     @FXML
-    private Label counterLabel = new Label("0");
+    private Label counterLabel;
     int counter = 0;
 
     public void increment() {
-
+        counter++;
+        this.counterLabel.setText(String.valueOf(counter));
     }
 
     public void decrement() {
+        counter--;
+        this.counterLabel.setText(String.valueOf(counter));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.counterLabel.setText("0");
         System.out.println("Initializing CounterController...");
    }
 }
