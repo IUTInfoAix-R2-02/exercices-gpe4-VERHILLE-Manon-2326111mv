@@ -1,11 +1,18 @@
-package fr.amu.iut.exercice1;
+package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -33,12 +40,37 @@ public class Palette extends Application {
 
     private Label texteDuBas;
 
+    private IntegerProperty nbFois;
+    private StringProperty message;
+    private StringProperty couleurPanneau;
+
+    private void EventVert(Event event){
+        nbFois.set(++nbVert);
+        couleurPanneau.set("#21bd2d");
+        panneau.styleProperty().bind(Bindings.concat("-fx-background-color:" + couleurPanneau.get()));
+    }
+
+    private void EventRouge(Event event){
+        nbFois.set(++nbRouge);
+        couleurPanneau.set("#9f0000");
+        panneau.styleProperty().bind(Bindings.concat("-fx-background-color:" + couleurPanneau.get()));
+    }
+
+    private void EventBleu(Event event){
+        nbFois.set(++nbBleu);
+        couleurPanneau.set("#52a6e1");
+        panneau.styleProperty().bind(Bindings.concat("-fx-background-color:" + couleurPanneau.get()));
+    }
 
     @Override
     public void start(Stage primaryStage) {
         root = new BorderPane();
 
-        texteDuHaut = new Label();
+        nbFois = new SimpleIntegerProperty(0);
+        message = new SimpleStringProperty();
+        couleurPanneau = new SimpleStringProperty("#000000");
+
+        texteDuHaut = new Label("Cliquer sur un bouton");
         texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         BorderPane.setAlignment(texteDuHaut, Pos.CENTER);
 
@@ -58,6 +90,10 @@ public class Palette extends Application {
         bleu = new Button("Bleu");
 
         /* VOTRE CODE ICI */
+        texteDuHaut.textProperty().bind(message.concat("Couleur choisi ").concat(nbFois.asString().concat("fois")));
+        vert.setOnAction(actionEvent -> EventVert(actionEvent) );
+        rouge.setOnAction(actionEvent -> EventRouge(actionEvent) );
+        bleu.setOnAction(actionEvent -> EventBleu(actionEvent) );
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
